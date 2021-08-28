@@ -23,8 +23,6 @@ public class SetIsBiggerThanACatActivity implements IActivity<SetIsBiggerThanACa
                 break;
         }
 
-        return new YesNoResponse() {{
-            answer = isBiggerThanACat;
-        }};
+        return new YesNoResponse(isBiggerThanACat);
     }
 }

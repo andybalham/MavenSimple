@@ -30,9 +30,9 @@ public class OrchestrationTheories {
             {
                     new IsBiggerThanACatTheory(AnimalType.Pig, YesNoType.Yes),
                     new IsBiggerThanACatTheory(AnimalType.Dog, YesNoType.Yes),
-                    new IsBiggerThanACatTheory(AnimalType.Cat, YesNoType.Yes),
-                    new IsBiggerThanACatTheory(AnimalType.Rabbit, YesNoType.Yes),
-                    new IsBiggerThanACatTheory(AnimalType.Mouse, YesNoType.Yes),
+                    new IsBiggerThanACatTheory(AnimalType.Cat, YesNoType.No),
+                    new IsBiggerThanACatTheory(AnimalType.Rabbit, YesNoType.No),
+                    new IsBiggerThanACatTheory(AnimalType.Mouse, YesNoType.No),
             };
 
     @Theory
@@ -46,12 +46,9 @@ public class OrchestrationTheories {
 
         var activity = context.getBean(IIsBiggerThanACatActivity.class);
 
-        var response =
-                activity.handle(new IsBiggerThanACatRequest() {{
-                    animal = theory.animal;
-                }});
+        var response = activity.handle(new IsBiggerThanACatRequest(theory.animal));
 
-        Assert.assertEquals(theoryDescription + ": response.yesNoType", response.answer, theory.expectedAnswer);
+        Assert.assertEquals(theoryDescription + ": response.yesNoType", theory.expectedAnswer, response.answer);
     }
 }
 

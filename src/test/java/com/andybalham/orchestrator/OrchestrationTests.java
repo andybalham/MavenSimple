@@ -22,13 +22,9 @@ public class OrchestrationTests {
         var addThreeNumbersActivity = context.getBean(IAddThreeNumbersActivity.class);
 
         var response =
-                addThreeNumbersActivity.handle(new AddThreeNumbersRequest() {{
-                    a = 1;
-                    b = 2;
-                    c = 3;
-                }});
+                addThreeNumbersActivity.handle(new AddThreeNumbersRequest(1, 2, 3));
 
-        Assert.assertEquals("response.total", response.total, 6);
+        Assert.assertEquals("response.total", 6, response.total);
     }
 
     @Test
@@ -37,10 +33,8 @@ public class OrchestrationTests {
         var activity = context.getBean(IIsBiggerThanACatActivity.class);
 
         var response =
-                activity.handle(new IsBiggerThanACatRequest() {{
-                    animal = AnimalType.Dog;
-                }});
+                activity.handle(new IsBiggerThanACatRequest(AnimalType.Dog));
 
-        Assert.assertEquals("response.yesNoType", response.answer, YesNoType.Yes);
+        Assert.assertEquals("response.yesNoType", YesNoType.Yes, response.answer);
     }
 }

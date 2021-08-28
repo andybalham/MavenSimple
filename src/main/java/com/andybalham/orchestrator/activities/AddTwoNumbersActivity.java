@@ -9,9 +9,8 @@ import org.springframework.stereotype.Service;
 public class AddTwoNumbersActivity implements IAddTwoNumbersActivity {
     @Override
     public TotalResponse handle(AddTwoNumbersRequest request) {
-        return new TotalResponse() {{
-            total = request.x + request.y;
-        }};
+        var total = request.x + request.y;
+        return new TotalResponse(total);
     }
 }
 

@@ -12,23 +12,25 @@ public class AddThreeNumbersActivity
         implements IAddThreeNumbersActivity {
 
     public static class Data {
-        public int a;
-        public int b;
-        public int c;
+
+        public final int a;
+        public final int b;
+        public final int c;
         public int total;
+
+        public Data(int a, int b, int c) {
+            this.a = a;
+            this.b = b;
+            this.c = c;
+        }
     }
 
     public AddThreeNumbersActivity(BeanFactory beanFactory) {
         super(
                 beanFactory,
-                (request) -> new Data() {{
-                    a = request.a;
-                    b = request.b;
-                    c = request.c;
-                }},
-                (data) -> new TotalResponse() {{
-                    total = data.total;
-                }});
+                (request) -> new Data(request.a, request.b, request.c),
+                (data) -> new TotalResponse(data.total)
+        );
     }
 
     @Override
