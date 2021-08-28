@@ -5,27 +5,22 @@ import java.util.List;
 
 public class OrchestrationBuilder<TData> {
 
-    private final List<StepDefinition> stepDefinitionList = new ArrayList<StepDefinition>();
+    private final List<StepDefinition> stepDefinitionList = new ArrayList<>();
 
     public Orchestration<TData> build() {
-        return new Orchestration<TData>(this.stepDefinitionList);
+        return new Orchestration<>(this.stepDefinitionList);
     }
 
     @SuppressWarnings("unchecked")
     public <TAct extends IActivity<TReq, TRes>, TReq extends IActivityRequest<TRes>, TRes> OrchestrationBuilder<TData> addActivity(
             String id,
-            Class<TAct> _activityInterface,
-            IMapRequest<TData, TReq, TRes> _mapRequest,
-            IMapResponse<TData, TRes> _mapResponse) {
+            Class<TAct> activityInterface,
+            IMapRequest<TData, TReq, TRes> mapRequest,
+            IMapResponse<TData, TRes> mapResponse) {
 
-        var _id = id;
-
-        var activityDefinition = new ActivityStepDefinition<TReq, TRes, TData>() {{
-            id = _id;
-            activityInterface = (Class<IActivity<TReq, TRes>>) _activityInterface;
-            mapRequest = _mapRequest;
-            mapResponse = _mapResponse;
-        }};
+        var activityDefinition =
+                new ActivityStepDefinition<>(
+                        id, (Class<IActivity<TReq, TRes>>) activityInterface, mapRequest, mapResponse);
 
         this.stepDefinitionList.add(activityDefinition);
 
@@ -34,15 +29,11 @@ public class OrchestrationBuilder<TData> {
 
     public DecisionBranch<TData> addDecision(String id) {
 
-        final var stepId = id;
-
-        var stepDefinition = new DecisionStepDefinition<TData>(this) {{
-            id = stepId;
-        }};
+        var stepDefinition = new DecisionStepDefinition<>(id, this);
 
         this.stepDefinitionList.add(stepDefinition);
 
-        return new DecisionBranch<TData>(stepDefinition);
+        return new DecisionBranch<>(stepDefinition);
     }
 
     public OrchestrationBuilder<TData> addEnd() {
@@ -50,9 +41,7 @@ public class OrchestrationBuilder<TData> {
         var endStepCount =
                 this.stepDefinitionList.stream().filter(sd -> sd instanceof EndStepDefinition).count();
 
-        this.stepDefinitionList.add(new EndStepDefinition() {{
-            id = String.format("End_%d", endStepCount);
-        }});
+        this.stepDefinitionList.add(new EndStepDefinition(String.format("End_%d", endStepCount)));
 
         return this;
     }

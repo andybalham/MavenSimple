@@ -6,27 +6,27 @@ public class DecisionStepDefinition<TData>
         extends StepDefinition {
 
     OrchestrationBuilder<TData> orchestrationBuilder;
-    ArrayList<Branch<TData>> branches = new ArrayList<Branch<TData>>();
+    ArrayList<Branch<TData>> branches = new ArrayList<>();
     String otherwiseTargetId;
 
     public static class Branch<TData> {
-        IIsMatch<TData> isMatch;
-        String targetId;
+
+        public final IIsMatch<TData> isMatch;
+        public final String targetId;
+
+        public Branch(IIsMatch<TData> isMatch, String targetId) {
+            this.isMatch = isMatch;
+            this.targetId = targetId;
+        }
     }
 
-    public DecisionStepDefinition(OrchestrationBuilder<TData> orchestrationBuilder) {
+    public DecisionStepDefinition(String id, OrchestrationBuilder<TData> orchestrationBuilder) {
+        super(id);
         this.orchestrationBuilder = orchestrationBuilder;
     }
 
     public void addBranch(IIsMatch<TData> isMatch, String targetId) {
-
-        var branchIsMatch = isMatch;
-        var branchTargetId = targetId;
-
-        this.branches.add(new Branch<TData>() {{
-            isMatch = branchIsMatch;
-            targetId = branchTargetId;
-        }});
+        this.branches.add(new Branch<>(isMatch, targetId));
     }
 
     public void setOtherwise(String targetId) {

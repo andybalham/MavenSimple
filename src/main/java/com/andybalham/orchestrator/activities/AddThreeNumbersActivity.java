@@ -38,18 +38,12 @@ public class AddThreeNumbersActivity
         builder
                 .addActivity(
                         "AddA&B", IAddTwoNumbersActivity.class,
-                        data -> new AddTwoNumbersRequest() {{
-                            x = data.a;
-                            y = data.b;
-                        }},
+                        data -> new AddTwoNumbersRequest(data.a, data.b),
                         (data, response) -> data.total = response.total
                 )
                 .addActivity(
                         "AddC&Total", IAddTwoNumbersActivity.class,
-                        data -> new AddTwoNumbersRequest() {{
-                            x = data.c;
-                            y = data.total;
-                        }},
+                        data -> new AddTwoNumbersRequest(data.c, data.total),
                         (data, response) -> data.total = response.total
                 )
         ;
