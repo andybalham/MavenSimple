@@ -35,6 +35,6 @@ public class OrchestrationTests {
         var response =
                 activity.handle(new IsBiggerThanACatRequest(AnimalType.Dog));
 
-        Assert.assertEquals("response.yesNoType", YesNoType.Yes, response.answer);
+        Assert.assertEquals("response.yesNoType", YesNoType.Yes, response.value);
     }
 }

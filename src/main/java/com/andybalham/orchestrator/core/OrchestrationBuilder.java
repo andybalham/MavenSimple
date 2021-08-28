@@ -12,7 +12,7 @@ public class OrchestrationBuilder<TData> {
     }
 
     @SuppressWarnings("unchecked")
-    public <TAct extends IActivity<TReq, TRes>, TReq extends IActivityRequest<TRes>, TRes> OrchestrationBuilder<TData> addActivity(
+    public <TAct extends IActivity<TReq, TRes>, TReq extends IActivityRequest<TRes>, TRes> OrchestrationBuilder<TData> perform(
             String id,
             Class<TAct> activityInterface,
             IMapRequest<TData, TReq, TRes> mapRequest,
@@ -27,7 +27,7 @@ public class OrchestrationBuilder<TData> {
         return this;
     }
 
-    public DecisionBranch<TData> addDecision(String id) {
+    public DecisionBranch<TData> choice(String id) {
 
         var stepDefinition = new DecisionStepDefinition<>(id, this);
 
@@ -36,7 +36,7 @@ public class OrchestrationBuilder<TData> {
         return new DecisionBranch<>(stepDefinition);
     }
 
-    public OrchestrationBuilder<TData> addEnd() {
+    public OrchestrationBuilder<TData> end() {
 
         var endStepCount =
                 this.stepDefinitionList.stream().filter(sd -> sd instanceof EndStepDefinition).count();

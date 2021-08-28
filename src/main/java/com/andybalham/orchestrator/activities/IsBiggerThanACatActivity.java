@@ -22,6 +22,7 @@ public class IsBiggerThanACatActivity
     public static class Data {
 
         public final AnimalType animal;
+        public boolean isBiggerThanACat;
         public YesNoType answer;
 
         public Data(AnimalType animal) {
@@ -32,26 +33,26 @@ public class IsBiggerThanACatActivity
     @Override
     protected void build(OrchestrationBuilder<Data> builder) {
         builder
-                .addActivity(
+                .perform(
                         "SetIsBiggerThanACat", SetIsBiggerThanACatActivity.class,
                         data -> new SetIsBiggerThanACatRequest(data.animal),
-                        (data, response) -> data.answer = response.answer)
+                        (data, response) -> data.isBiggerThanACat = response.value)
 
-                .addDecision("IsBiggerThanACat")
-                .when(data -> data.answer == YesNoType.Yes, "SetYes")
+                .choice("IsBiggerThanACat")
+                .when(data -> data.isBiggerThanACat, "SetYes")
                 .otherwise("SetNo")
 
-                .addActivity(
+                .perform(
                         "SetYes", SetYesNoActivity.class,
                         data -> new SetYesNoRequest(YesNoType.Yes),
-                        (data, response) -> data.answer = response.answer)
-                .addEnd()
+                        (data, response) -> data.answer = response.value)
+                .end()
 
-                .addActivity(
+                .perform(
                         "SetNo", SetYesNoActivity.class,
                         data -> new SetYesNoRequest(YesNoType.No),
-                        (data, response) -> data.answer = response.answer)
-                .addEnd()
+                        (data, response) -> data.answer = response.value)
+                .end()
         ;
     }
 }

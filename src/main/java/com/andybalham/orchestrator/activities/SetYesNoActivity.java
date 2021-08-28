@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service;
 public class SetYesNoActivity implements IActivity<SetYesNoRequest, YesNoResponse> {
     @Override
     public YesNoResponse handle(SetYesNoRequest request) {
-        return new YesNoResponse(request.yesNo);
+        return new YesNoResponse(request.value);
     }
 }

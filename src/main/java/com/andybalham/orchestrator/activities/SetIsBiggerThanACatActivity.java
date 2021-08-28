@@ -1,28 +1,27 @@
 package com.andybalham.orchestrator.activities;
 
+import com.andybalham.orchestrator.contracts.BooleanResponse;
 import com.andybalham.orchestrator.contracts.SetIsBiggerThanACatRequest;
-import com.andybalham.orchestrator.contracts.YesNoResponse;
-import com.andybalham.orchestrator.contracts.YesNoType;
 import com.andybalham.orchestrator.core.IActivity;
 import org.springframework.stereotype.Service;
 
 @Service
-public class SetIsBiggerThanACatActivity implements IActivity<SetIsBiggerThanACatRequest, YesNoResponse> {
+public class SetIsBiggerThanACatActivity implements IActivity<SetIsBiggerThanACatRequest, BooleanResponse> {
     @Override
-    public YesNoResponse handle(SetIsBiggerThanACatRequest request) {
+    public BooleanResponse handle(SetIsBiggerThanACatRequest request) {
 
-        final YesNoType isBiggerThanACat;
+        final boolean isBiggerThanACat;
 
         switch (request.animal) {
             case Dog:
             case Pig:
-                isBiggerThanACat = YesNoType.Yes;
+                isBiggerThanACat = true;
                 break;
             default:
-                isBiggerThanACat = YesNoType.No;
+                isBiggerThanACat = false;
                 break;
         }
 
-        return new YesNoResponse(isBiggerThanACat);
+        return new BooleanResponse(isBiggerThanACat);
     }
 }

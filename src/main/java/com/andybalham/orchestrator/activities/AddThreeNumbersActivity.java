@@ -36,12 +36,12 @@ public class AddThreeNumbersActivity
     @Override
     protected void build(OrchestrationBuilder<Data> builder) {
         builder
-                .addActivity(
+                .perform(
                         "AddA&B", IAddTwoNumbersActivity.class,
                         data -> new AddTwoNumbersRequest(data.a, data.b),
                         (data, response) -> data.total = response.total
                 )
-                .addActivity(
+                .perform(
                         "AddC&Total", IAddTwoNumbersActivity.class,
                         data -> new AddTwoNumbersRequest(data.c, data.total),
                         (data, response) -> data.total = response.total

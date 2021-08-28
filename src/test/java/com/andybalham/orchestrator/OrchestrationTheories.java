@@ -44,7 +44,7 @@ public class OrchestrationTheories {
 
         var response = activity.handle(new IsBiggerThanACatRequest(theory.animal));
 
-        Assert.assertEquals(theoryDescription + ": response.yesNoType", theory.expectedAnswer, response.answer);
+        Assert.assertEquals(theoryDescription + ": response.yesNoType", theory.expectedAnswer, response.value);
     }
 }
 
