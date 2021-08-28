@@ -2,7 +2,7 @@ package com.andybalham.orchestrator.core;
 
 public class DecisionBranch<TData> {
 
-    DecisionStepDefinition<TData> stepDefinition;
+    final DecisionStepDefinition<TData> stepDefinition;
 
     public DecisionBranch(DecisionStepDefinition<TData> stepDefinition) {
         this.stepDefinition = stepDefinition;

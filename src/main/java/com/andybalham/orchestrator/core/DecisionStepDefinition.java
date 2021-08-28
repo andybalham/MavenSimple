@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class DecisionStepDefinition<TData>
         extends StepDefinition {
 
-    OrchestrationBuilder<TData> orchestrationBuilder;
-    ArrayList<Branch<TData>> branches = new ArrayList<>();
+    final OrchestrationBuilder<TData> orchestrationBuilder;
+    final ArrayList<Branch<TData>> branches = new ArrayList<>();
     String otherwiseTargetId;
 
     public static class Branch<TData> {

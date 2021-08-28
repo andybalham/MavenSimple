@@ -13,7 +13,7 @@ public class Orchestration<TData> {
         this.stepDefinitionList = stepDefinitionList;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "UnusedReturnValue"})
     protected TData execute(BeanFactory beanFactory, TData data) {
 
         int stepIndex = 0;

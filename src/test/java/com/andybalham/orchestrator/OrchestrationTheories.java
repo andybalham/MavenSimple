@@ -40,10 +40,6 @@ public class OrchestrationTheories {
 
         var theoryDescription = new ObjectMapper().writeValueAsString(theory);
 
-//        GsonBuilder builder = new GsonBuilder();
-//        Gson gson = builder.create();
-//        var theoryDescription = gson.toJson(theory);
-
         var activity = context.getBean(IIsBiggerThanACatActivity.class);
 
         var response = activity.handle(new IsBiggerThanACatRequest(theory.animal));
